@@ -1,0 +1,133 @@
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Exclude all .tfvars files, which are likely to contain sensitive data
+*.tfvars
+*.tfvars.json
+
+# Ignore override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Include override files you do wish to add to version control using negated pattern
+# !example_override.tf
+
+# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+*.tfplan
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# SSH keys and certificates
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+*.pfx
+ssh-key/
+keys/
+
+# Environment files
+.env
+.env.*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+
+# Backup files
+*.bak
+*.backup
+*.bkp
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+
+# License files (often contain sensitive info)
+*.lic
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+myenv/
+venv/
+ENV/
+
+# Docker
+docker-compose.override.yml
+
+# FortiDevSec
+fdevsec.yaml
+
+# Private directories
+priv/
+private/
+*.priv
+/drawio/*
+*.drawio
+*.dtmp
+
+# Temporary files
+*.tmp
+*.temp
+
+# Vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+.\#*
