@@ -1,5 +1,7 @@
 # FGCP Multi-AZ Example
 
+> **🤖 AI-Generated Example**: This example has been generated using AI agents. Please review, test, and adapt according to your specific requirements before production use.
+
 This example demonstrates how to deploy a FortiGate FGCP (FortiGate Clustering Protocol) cluster across multiple Availability Zones for maximum high availability.
 
 ## Architecture

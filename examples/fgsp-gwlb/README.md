@@ -1,5 +1,7 @@
 # FGSP with Gateway Load Balancer Example
 
+> **🤖 AI-Generated Example**: This example has been generated using AI agents. Please review, test, and adapt according to your specific requirements before production use.
+
 This example demonstrates how to deploy a FortiGate FGSP (FortiGate Session Sync Protocol) cluster with AWS Gateway Load Balancer for high-performance, scalable traffic inspection.
 
 ## Architecture

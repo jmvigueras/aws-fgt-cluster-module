@@ -6,6 +6,8 @@
 
 A Terraform module for deploying FortiGate clusters on AWS with support for both FGCP (FortiGate Clustering Protocol) and FGSP (FortiGate Session Sync Protocol) clustering modes.
 
+> **⚠️ AI-Generated Content**: This repository contains AI-generated documentation and examples. Please review and test thoroughly before production use.
+
 ## Features
 
 - 🏗️ **Multiple Cluster Types**: Support for FGCP and FGSP clustering
