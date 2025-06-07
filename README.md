@@ -143,66 +143,20 @@ module "fortigate_fgsp_gwlb" {
 
 | Name | Description |
 |------|-------------|
-| fgt_public_ips | Public IP addresses of FortiGate instances |
-| fgt_private_ips | Private IP addresses of FortiGate instances |
-| fgt_mgmt_urls | Management URLs for FortiGate instances |
+| fgt | Complete FortiGate information including management URLs, passwords, and public IPs |
+| api_key | API key for FortiGate instances (sensitive) |
+| keypair_name | Name of the SSH key pair |
 | vpc_id | ID of the created VPC |
-| public_subnet_ids | IDs of public subnets |
-| private_subnet_ids | IDs of private subnets |
-| security_group_ids | IDs of created security groups |
+| subnet_public_ids | IDs of public subnets |
+| subnet_private_ids | IDs of private subnets |
+| subnet_cidrs | CIDR blocks of all subnets |
+| rt_ids | Route table IDs |
+| sg_ids | Security group IDs |
 
 ## Examples
 
 See the [examples](./examples) directory for complete deployment scenarios:
 
-- [FGCP Single AZ](./examples/fgcp-single-az)
-- [FGCP Multi-AZ](./examples/fgcp-multi-az)
-- [FGSP with GWLB](./examples/fgsp-gwlb)
-- [Complete Infrastructure](./examples/complete)
-
-## Security Considerations
-
-- **Network Segmentation**: Separate public and private subnets
-- **Security Groups**: Restrictive ingress/egress rules
-- **IAM Roles**: Least privilege access for FortiGate operations
-- **Encryption**: EBS volumes encrypted by default
-- **Access Control**: Management access through secure channels only
-
-## Cost Optimization
-
-- Choose appropriate instance types based on throughput requirements
-- Consider PAYG vs BYOL licensing based on usage patterns
-- Use Spot instances for non-production environments
-- Implement proper tagging for cost allocation
-
-## Support
-
-This is a community module maintained by [jmvigueras](https://github.com/jmvigueras). 
-
-### Reporting Issues
-Please report issues, bugs, and feature requests via [GitHub Issues](https://github.com/jmvigueras/aws-fgt-cluster-module/issues).
-
-### Contributing
-Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting pull requests.
-
-## License
-
-This module is licensed under the Apache License 2.0. See [LICENSE](LICENSE) file for details.
-
-## Disclaimer
-
-This module is provided as-is for educational and testing purposes. Users are responsible for:
-- Understanding AWS costs associated with deployed resources
-- Ensuring compliance with security requirements
-- Testing thoroughly before production deployment
-- Maintaining and updating the infrastructure appropriately
-
-**⚠️ Important**: AWS resources created by this module will incur costs. Please review AWS pricing and clean up resources when no longer needed.
-
----
-
-## Acknowledgments
-
-- [Fortinet](https://www.fortinet.com/) for FortiGate documentation and best practices
-- [AWS](https://aws.amazon.com/) for cloud infrastructure and services
-- Terraform community for modules and best practices
+- [FGCP Single AZ](./examples/fgcp-single-az) - Basic FGCP cluster in one AZ
+- [FGCP Multi-AZ](./examples/fgcp-multi-az) - High availability FGCP across multiple AZs
+- [FGSP with GWLB](./examples/fgsp-gwlb) - Scalable FGSP cluster with Gateway Load Balancer
