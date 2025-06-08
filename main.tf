@@ -66,7 +66,14 @@ module "fgt_config" {
   gwlbe_ip              = lookup(local.gwlbe_ips_map, each.key, "")
   gwlb_inspection_cidrs = var.inspection_vpc_cidrs
 
-  static_route_cidrs = [var.fgt_vpc_cidr] //necessary routes to stablish BGP peerings and bastion connection
+  config_spoke = var.config_spoke
+  spoke        = var.spoke
+  hubs         = var.hubs
+
+  config_hub = var.config_hub
+  hub        = var.hub
+
+  static_route_cidrs = [var.fgt_vpc_cidr]
 }
 # Create FGT for hub EU
 module "fgt" {

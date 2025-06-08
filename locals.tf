@@ -37,4 +37,24 @@ locals {
   gwlbe_ips_list = try(values(module.gwlb[0].gwlbe_ips), [])
   gwlbe_ips_map  = try(zipmap(keys(module.fgt_nis.fgt_ports_config), local.gwlbe_ips_list), {})
 
+  #-----------------------------------------------------------------------------------------------------
+  # Outputs 
+  #-----------------------------------------------------------------------------------------------------
+  // Variable for spoke to connect to HUB
+  o_hubs = var.config_hub ? [for i, v in var.hub : {
+    id                = v["id"]
+    bgp_asn           = v["bgp_asn_hub"]
+    external_ip       = v["vpn_port"] == "public" ? module.fgt_nis.fgt_eips_map["az1.fgt1.port1.public"] : module.fgt_nis.fgt_ips_map["az1.fgt1"]["port2.private"]
+    hub_ip            = cidrhost(v["vpn_cidr"], 1)
+    site_ip           = "" // set to "" if VPN mode-cfg is enable
+    hck_ip            = cidrhost(v["vpn_cidr"], 1)
+    vpn_psk           = module.fgt_config["az1.fgt1"].vpn_psk
+    cidr              = v["cidr"]
+    ike_version       = v["ike_version"]
+    network_id        = v["network_id"]
+    dpd_retryinterval = v["dpd_retryinterval"]
+    sdwan_port        = v["vpn_port"]
+    }
+  ] : []
+
 }

@@ -72,6 +72,12 @@ output "fgt_ni_list" {
   value = module.fgt_nis.fgt_ni_list
 }
 
+output "hubs" {
+  description = "VPN details for SDWAN spokes to connect to this HUB"
+  sensitive   = true
+  value       = local.o_hubs
+}
+
 /*
 #-------------------------------
 # Debugging 
