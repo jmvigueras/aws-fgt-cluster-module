@@ -16,6 +16,10 @@ A Terraform module for deploying FortiGate clusters on AWS with support for both
 - 🛡️ **Security Focused**: Built-in security groups and network segmentation
 - 📊 **Gateway Load Balancer**: Optional GWLB integration for advanced traffic distribution
 - 🏷️ **Consistent Tagging**: Standardized resource tagging for better management
+- 🌟 **SD-WAN Ready**: Built-in support for SD-WAN Hub and Spoke configurations
+- 🔗 **VPN Connectivity**: Automatic VPN tunnel configuration for SD-WAN deployments
+- 📡 **BGP Support**: Dynamic routing with BGP for SD-WAN networks
+- ⚡ **Auto-scaling**: Gateway Load Balancer integration for horizontal scaling
 
 ## Architecture
 
@@ -34,7 +38,7 @@ This module creates a complete FortiGate cluster infrastructure including:
 
 ```hcl
 module "fortigate_cluster" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.0"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.1"
 
   prefix = "my-fgt-cluster"
   region = "us-west-2"
@@ -58,7 +62,7 @@ module "fortigate_cluster" {
 
 ```hcl
 module "fortigate_cluster_ha" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.0"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.1"
 
   prefix = "my-fgt-ha"
   region = "us-west-2"
@@ -79,7 +83,7 @@ module "fortigate_cluster_ha" {
 
 ```hcl
 module "fortigate_fgsp_gwlb" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.0"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.1"
 
   prefix = "my-fgt-fgsp"
   region = "us-west-2"
@@ -94,6 +98,83 @@ module "fortigate_fgsp_gwlb" {
   
   fgt_vpc_cidr = "10.30.0.0/23"
   config_gwlb  = true
+}
+```
+
+### SD-WAN Hub Configuration
+
+```hcl
+module "fortigate_sdwan_hub" {
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.1"
+
+  prefix = "sdwan-hub"
+  region = "us-west-2"
+  azs    = ["us-west-2a", "us-west-2b"]
+
+  fgt_cluster_type = "fgcp"
+  fgt_number_peer_az = 1
+  
+  license_type  = "byol"
+  instance_type = "c6i.large"
+  
+  # Enable SD-WAN Hub functionality
+  config_hub = true
+  
+  hub = [{
+    id                = "AWS-HUB-WEST"
+    bgp_asn_hub       = "65001"
+    vpn_cidr          = "172.16.100.0/24"
+    vpn_psk           = "your-secure-psk-key"
+    cidr              = "10.0.0.0/8"
+    vpn_port          = "public"
+  }]
+  
+  fgt_vpc_cidr = "10.100.0.0/24"
+}
+```
+
+### SD-WAN Spoke Configuration
+
+```hcl
+module "fortigate_sdwan_spoke" {
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.1"
+
+  prefix = "sdwan-spoke-east"
+  region = "us-east-1"
+  azs    = ["us-east-1a"]
+
+  fgt_cluster_type = "fgcp"
+  fgt_number_peer_az = 1
+  
+  license_type  = "payg"
+  instance_type = "c6i.large"
+  
+  # Enable SD-WAN Spoke functionality
+  config_spoke = true
+  
+  spoke = {
+    id      = "AWS-SPOKE-EAST"
+    cidr    = "10.200.0.0/24"
+    bgp_asn = "65002"
+  }
+  
+  # Hub connection details
+  hubs = [{
+    id                = "AWS-HUB-WEST"
+    bgp_asn           = "65001"
+    external_ip       = "52.x.x.x"  # Hub public IP from hub output
+    hub_ip            = "172.16.100.1"
+    site_ip           = "172.16.100.10"
+    hck_ip            = "172.16.100.1"
+    vpn_psk           = "your-secure-psk-key"
+    cidr              = "10.0.0.0/8"
+    ike_version       = "2"
+    network_id        = "1"
+    dpd_retryinterval = "5"
+    sdwan_port        = "public"
+  }]
+  
+  fgt_vpc_cidr = "10.200.0.0/24"
 }
 ```
 
@@ -140,7 +221,11 @@ module "fortigate_fgsp_gwlb" {
 | config_gwlb | Enable Gateway Load Balancer | `bool` | `false` | no |
 | public_subnet_names_extra | Additional public subnet names | `list(string)` | `[]` | no |
 | private_subnet_names_extra | Additional private subnet names | `list(string)` | `[]` | no |
-
+| config_hub | Enable SD-WAN Hub configuration | `bool` | `false` | no |
+| config_spoke | Enable SD-WAN Spoke configuration | `bool` | `false` | no |
+| hub | SD-WAN Hub configuration parameters | `list(object)` | `[]` | no |
+| spoke | SD-WAN Spoke configuration parameters | `object` | See example | no |
+| hubs | List of Hub connection details for Spokes | `list(object)` | `[]` | no |
 ## Outputs
 
 | Name | Description |
