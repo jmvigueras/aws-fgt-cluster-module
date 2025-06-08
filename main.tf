@@ -69,11 +69,11 @@ module "fgt_config" {
   gwlb_inspection_cidrs = var.inspection_vpc_cidrs
 
   config_spoke = var.config_spoke
-  spoke = var.spoke
-  hubs = var.hubs
+  spoke        = var.spoke
+  hubs         = var.hubs
 
   config_hub = var.config_hub
-  hub = var.hub
+  hub        = var.hub
 
   static_route_cidrs = [var.fgt_vpc_cidr]
 }

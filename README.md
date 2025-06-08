@@ -41,7 +41,7 @@ This module creates a complete FortiGate cluster infrastructure including:
 
 ```hcl
 module "fortigate_cluster" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.2"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.3"
 
   prefix = "my-fgt-cluster"
   region = "us-west-2"
@@ -65,7 +65,7 @@ module "fortigate_cluster" {
 
 ```hcl
 module "fortigate_cluster_ha" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.2"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.3"
 
   prefix = "my-fgt-ha"
   region = "us-west-2"
@@ -86,7 +86,7 @@ module "fortigate_cluster_ha" {
 
 ```hcl
 module "fortigate_fgsp_gwlb" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.2"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.3"
 
   prefix = "my-fgt-fgsp"
   region = "us-west-2"
@@ -108,7 +108,7 @@ module "fortigate_fgsp_gwlb" {
 
 ```hcl
 module "fortigate_sdwan_hub" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.2"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.3"
 
   prefix = "sdwan-hub"
   region = "us-west-2"
@@ -140,7 +140,7 @@ module "fortigate_sdwan_hub" {
 
 ```hcl
 module "fortigate_sdwan_spoke" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.2"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.3"
 
   prefix = "sdwan-spoke-east"
   region = "us-east-1"
