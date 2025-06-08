@@ -20,10 +20,13 @@ A Terraform module for deploying FortiGate clusters on AWS with support for both
 - 🔗 **VPN Connectivity**: Automatic VPN tunnel configuration for SD-WAN deployments
 - 📡 **BGP Support**: Dynamic routing with BGP for SD-WAN networks
 - ⚡ **Auto-scaling**: Gateway Load Balancer integration for horizontal scaling
+- 🔒 **Self-Contained**: Includes local FortiGate configuration module for reliability
 
 ## Architecture
 
 This module creates a complete FortiGate cluster infrastructure including:
+
+**Self-Contained Design**: This module includes a local `fgt_config` module that provides all FortiGate configuration templates and logic locally, ensuring reliable deployments without external dependencies.
 
 - VPC with public and private subnets across multiple AZs
 - FortiGate instances configured in FGCP or FGSP mode
@@ -38,7 +41,7 @@ This module creates a complete FortiGate cluster infrastructure including:
 
 ```hcl
 module "fortigate_cluster" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.1"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.2"
 
   prefix = "my-fgt-cluster"
   region = "us-west-2"
@@ -62,7 +65,7 @@ module "fortigate_cluster" {
 
 ```hcl
 module "fortigate_cluster_ha" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.1"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.2"
 
   prefix = "my-fgt-ha"
   region = "us-west-2"
@@ -83,7 +86,7 @@ module "fortigate_cluster_ha" {
 
 ```hcl
 module "fortigate_fgsp_gwlb" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.1"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.2"
 
   prefix = "my-fgt-fgsp"
   region = "us-west-2"
@@ -105,7 +108,7 @@ module "fortigate_fgsp_gwlb" {
 
 ```hcl
 module "fortigate_sdwan_hub" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.1"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.2"
 
   prefix = "sdwan-hub"
   region = "us-west-2"
@@ -137,7 +140,7 @@ module "fortigate_sdwan_hub" {
 
 ```hcl
 module "fortigate_sdwan_spoke" {
-  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.1"
+  source = "github.com/jmvigueras/aws-fgt-cluster-module?ref=v1.0.2"
 
   prefix = "sdwan-spoke-east"
   region = "us-east-1"

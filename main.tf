@@ -43,8 +43,10 @@ module "fgt_nis" {
 }
 # Create FGTs config
 module "fgt_config" {
-  source  = "jmvigueras/ftnt-aws-modules/aws//modules/fgt_config"
-  version = "1.0.0"
+  #source  = "jmvigueras/ftnt-aws-modules/aws//modules/fgt_config"
+  #version = "1.0.0"
+
+  source = "./modules/fgt_config"
 
   for_each = { for k, v in module.fgt_nis.fgt_ports_config : k => v }
 
@@ -67,11 +69,11 @@ module "fgt_config" {
   gwlb_inspection_cidrs = var.inspection_vpc_cidrs
 
   config_spoke = var.config_spoke
-  spoke        = var.spoke
-  hubs         = var.hubs
+  spoke = var.spoke
+  hubs = var.hubs
 
   config_hub = var.config_hub
-  hub        = var.hub
+  hub = var.hub
 
   static_route_cidrs = [var.fgt_vpc_cidr]
 }
