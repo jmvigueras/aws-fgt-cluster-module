@@ -131,3 +131,6 @@ Session.vim
 *~
 \#*\#
 .\#*
+
+# Terraform lock file (should not be committed for modules)
+.terraform.lock.hcl
